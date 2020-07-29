@@ -1,0 +1,77 @@
+-------------------------------------------------------------------------------
+
+Paper.
+
+The Statistical Complexity of Early Stopped Mirror Descent
+(Tomas Vaškevičius, Varun Kanade, Patrick Rebeschini)
+
+https://arxiv.org/abs/2002.00189
+
+-------------------------------------------------------------------------------
+
+Initializing the rprml submodule
+(see https://github.com/TomasVaskevicius/rprml).
+
+After cloning the repository, run the following command:
+`git submodule update --init'
+
+-------------------------------------------------------------------------------
+
+Dependencies.
+
+In order for the code to run, install the following packages.
+
+1) https://github.com/pytorch/pytorch
+2) https://github.com/pytorch/ignite
+3) https://github.com/civisanalytics/python-glmnet
+
+-------------------------------------------------------------------------------
+
+Quickstart guide.
+
+Inspect the notebook ./notebooks/mirror_descent_simulations.ipynb for code
+that quickly produces prototypes of Figures 1 and 3 presented in the paper.
+
+-------------------------------------------------------------------------------
+
+Reproducing the simulations.
+
+First, modify the running configurations in the python files contained in the
+src/experiments directory (i.e., select the devices on which the simulations
+are to be performed and the number of processes to be spawned). Then, execute
+the following line of code from the root of this repository:
+
+`chmod +x ./run.sh & ./run.sh`
+
+The output of the simulations will be stored in the ./outputs and ./figures
+directories. For troubleshooting, the warnings and errors during the simulation
+runs are stored in the newly created ./.err_md_complexity_simulation and
+./.err_md_range_simulation files.
+
+-------------------------------------------------------------------------------
+
+Code structure.
+
+1) ./notebooks --- Contains an example notebook that reproduces the results of
+        Figures 1 and 3 without the error bars.
+2) ./rprml --- A git submodule that contains some boilerplate code for running
+        the simulations (see https://github.com/TomasVaskevicius/rprml).
+2) ./src/elastic_net_simulation.py --- Contains the code used to run lasso and
+        ridge regression simulations.
+3) ./src/event_handlers.py --- Contains the code that handles logging of
+        various complexity parameters such as the excess risk and the Bregman
+        divergence.
+3) ./src/linear_model.py --- Definition of the linear model.
+4) ./src/mirror_descent_optimizer.py --- An implementation of mirror descent
+        optimizer as well as the mirror maps used to generate the figures.
+5) ./src/mirror_descent_simulation_factory.py --- Defines a factory class for
+        creating new mirror descent simulation objects.
+6) ./src/rprml_path.py --- Path magic so that the rprml submodule can be
+    found from code contained in the ./src and ./notebooks directories.
+7) ./src/synthetic_data.py --- Code setting up the synthetic data.
+8) ./src/experiments/mirror_descent_complexity_experiment.py -- Contains the
+        code used to generate Figures 1 and 3 in the paper.
+9) ./src/experiments/range_of_early_stopped_estimator_experiment.py ---
+        Contains the code used to generate Figure 2 in the paper.
+
+-------------------------------------------------------------------------------
